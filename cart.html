@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart | FoodSave</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base Styles */
+:root {
+    --primary: #4CAF50; /* FoodSave brand green */
+    --primary-light: #E8F5E9;
+    --primary-dark: #388E3C;
+    --danger: #F44336;
+    --danger-light: #FFEBEE;
+    --dark: #212121;
+    --gray: #757575;
+    --light-gray: #F5F5F5;
+    --border-gray: #E0E0E0;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    background-color: #FAFAFA;
+    line-height: 1.6;
+  }
+  
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+  }
+  
+  .text-muted {
+    color: var(--gray) !important;
+  }
+  
+  /* Layout */
+  .container {
+    max-width: 1200px;
+  }
+  
+  /* Cards */
+  .card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+  }
+  
+  .card-header {
+    padding: 1.25rem 1.5rem;
+    background-color: white;
+    border-bottom: 1px solid var(--border-gray);
+  }
+  
+  /* Cart Items */
+  .cart-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border-gray);
+  }
+  
+  .cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  /* Quantity Controls */
+  .input-group {
+    width: 120px;
+  }
+  
+  .quantity-btn {
+    width: 36px;
+    padding: 0.375rem 0;
+    border-color: var(--border-gray);
+  }
+  
+  .quantity-btn:hover {
+    background-color: var(--light-gray);
+  }
+  
+  .quantity-input {
+    border-left: none;
+    border-right: none;
+    border-color: var(--border-gray);
+    font-weight: 500;
+  }
+  
+  /* Badges */
+  .badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+  
+  .bg-danger {
+    background-color: var(--danger) !important;
+  }
+  
+  /* Remove Button */
+  .btn-link.text-danger {
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+  }
+  
+  .btn-link.text-danger:hover {
+    color: var(--danger) !important;
+  }
+  
+  /* Promo Code Input */
+  .input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .input-group .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  /* Order Summary */
+  .sticky-top {
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  
+  .order-summary hr {
+    opacity: 0.2;
+    margin: 1rem 0;
+  }
+  
+  /* Buttons */
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+  }
+  
+  .btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: white;
+  }
+  
+  .btn-lg {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  /* Delivery Instructions */
+  textarea.form-control {
+    min-height: 100px;
+    border-radius: 8px;
+    resize: none;
+  }
+  
+  /* Security Note */
+  .security-note {
+    font-size: 0.875rem;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .cart-item img {
+      width: 70px;
+      height: 70px;
+    }
+    
+    .input-group {
+      width: 110px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .cart-item {
+      padding: 1rem 0;
+    }
+    
+    .cart-item img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .btn {
+      padding: 0.625rem 1.25rem;
+    }
+  }
+  
+  /* Animation for cart items */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .cart-item {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+  
+  .cart-item:nth-child(1) { animation-delay: 0.1s; }
+  .cart-item:nth-child(2) { animation-delay: 0.2s; }
+  </style>
+</head>
+<body>
+  <!-- Navbar would be included here -->
+  
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-white border-bottom">
+            <h2 class="h5 mb-0 fw-bold">Your Cart (3 items)</h2>
+          </div>
+          <div class="card-body">
+            <!-- Cart Item 1 -->
+            <div class="row align-items-center mb-4 pb-4 border-bottom">
+              <div class="col-md-2">
+                <img src="images/p1.jpg" alt="Avocado Toast" class="img-fluid rounded">
+              </div>
+              <div class="col-md-5">
+                <h5 class="mb-1 fw-bold">Avocado Toast</h5>
+                <p class="small text-muted mb-2">Green Bites • Surplus Deal</p>
+                <span class="badge bg-danger">Expires in 2 hours</span>
+              </div>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <button class="btn btn-outline-secondary quantity-btn">−</button>
+                  <input type="text" class="form-control text-center quantity-input" value="1">
+                  <button class="btn btn-outline-secondary quantity-btn">+</button>
+                </div>
+              </div>
+              <div class="col-md-2 text-end">
+                <span class="d-block fw-bold">$5.39</span>
+                <span class="small text-muted text-decoration-line-through">$8.99</span>
+                <button class="btn btn-link text-danger p-0 mt-1">
+                  <i class="fas fa-trash-alt"></i> Remove
+                </button>
+              </div>
+            </div>
+            
+            <!-- Cart Item 2 -->
+            <div class="row align-items-center mb-4 pb-4 border-bottom">
+              <div class="col-md-2">
+                <img src="images/p2.jpg" alt="Pasta" class="img-fluid rounded">
+              </div>
+              <div class="col-md-5">
+                <h5 class="mb-1 fw-bold">Truffle Pasta</h5>
+                <p class="small text-muted mb-2">Italian Corner</p>
+              </div>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <button class="btn btn-outline-secondary quantity-btn">−</button>
+                  <input type="text" class="form-control text-center quantity-input" value="2">
+                  <button class="btn btn-outline-secondary quantity-btn">+</button>
+                </div>
+              </div>
+              <div class="col-md-2 text-end">
+                <span class="d-block fw-bold">$14.98</span>
+                <button class="btn btn-link text-danger p-0 mt-1">
+                  <i class="fas fa-trash-alt"></i> Remove
+                </button>
+              </div>
+            </div>
+            
+            <!-- Promo Code -->
+            <div class="mb-4">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Promo code">
+                <button class="btn btn-primary">Apply</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card shadow-sm">
+          <div class="card-header bg-white border-bottom">
+            <h2 class="h5 mb-0 fw-bold">Delivery Instructions</h2>
+          </div>
+          <div class="card-body">
+            <textarea class="form-control" rows="3" placeholder="Any special instructions?"></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Order Summary -->
+      <div class="col-lg-4">
+        <div class="card shadow-sm sticky-top" style="top: 20px;">
+          <div class="card-header bg-white border-bottom">
+            <h2 class="h5 mb-0 fw-bold">Order Summary</h2>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-2">
+                <span>Subtotal (3 items)</span>
+                <span>$20.37</span>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <span>Delivery Fee</span>
+                <span>$2.99</span>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <span>Tax</span>
+                <span>$1.83</span>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-success">Discount</span>
+                <span class="text-success">-$3.60</span>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-between fw-bold fs-5">
+                <span>Total</span>
+                <span>$21.59</span>
+              </div>
+            </div>
+            
+            <div class="d-grid gap-2">
+              <a href="checkout.html" class="btn btn-primary btn-lg">Proceed to Checkout</a>
+              <a href="list.html" class="btn btn-outline-primary">Continue Shopping</a>
+            </div>
+            
+            <div class="mt-4">
+              <p class="small text-muted">
+                <i class="fas fa-lock me-1"></i> Your payment is secure with 256-bit encryption
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer would be included here -->
+
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="scripts.js"></script>
+  <script>
+    // Quantity controls
+    document.querySelectorAll('.quantity-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const input = this.parentElement.querySelector('.quantity-input');
+        let value = parseInt(input.value);
+        
+        if (this.textContent === '−' && value > 1) {
+          input.value = value - 1;
+        } else if (this.textContent === '+') {
+          input.value = value + 1;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
